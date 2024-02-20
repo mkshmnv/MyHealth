@@ -13,5 +13,6 @@
     <string name="menu_slideshow">Slideshow</string>
 
 <!--    Fragment temperature -->
-    <string name="add_temperature">Add temperature</string>
+    <string name="temperature_add">Add</string>
+    <string name="temperature_statistics">Statistics</string>
 </resources>
