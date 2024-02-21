@@ -1,13 +1,11 @@
 package com.mkshmnv.myhealth.ui.temperature
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mkshmnv.myhealth.R
+import com.mkshmnv.myhealth.Logger
 import com.mkshmnv.myhealth.databinding.ItemTemperatureBinding
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class Temperature(
     val date: String,
@@ -15,47 +13,44 @@ data class Temperature(
     val value: String,
     val pills: Boolean = false,
     val description: String = "",
-    val id: LocalDate = LocalDate.now()
+    val id: LocalDateTime = LocalDateTime.now()
 )
 
 class TemperatureAdapter(private val onItemClick: (Temperature) -> Unit) :
     RecyclerView.Adapter<TemperatureAdapter.TemperatureViewHolder>() {
-    private var temperatureList: List<Temperature> = emptyList()
-        set(newValue) {
-            field = newValue
-            notifyDataSetChanged()
-        }
+    private var temperaturesList: MutableList<Temperature> = mutableListOf()
 
-    override fun getItemCount() = temperatureList.size
+    override fun getItemCount() = temperaturesList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TemperatureViewHolder {
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_temperature, parent, false)
-        return TemperatureViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemTemperatureBinding.inflate(inflater, parent, false)
+        return TemperatureViewHolder(binding)
     }
 
-    class TemperatureViewHolder(temperature: View) : RecyclerView.ViewHolder(temperature) {
-        private val binding = ItemTemperatureBinding.bind(temperature)
-        fun bind(temperature: Temperature) = binding.apply {
+    override fun onBindViewHolder(holder: TemperatureViewHolder, position: Int) {
+        val temperature = temperaturesList[position]
+        holder.binding.apply {
             tvTemperatureDate.text = temperature.date
             tvTemperatureTime.text = temperature.time
             tvTemperatureValue.text = temperature.value
         }
-    }
-
-
-    override fun onBindViewHolder(holder: TemperatureViewHolder, position: Int) {
-        holder.apply {
-            val item = temperatureList[position]
-            bind(item)
-            itemView.setOnClickListener { onItemClick(item) }
+        holder.itemView.setOnClickListener {
+            onItemClick(temperature)
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    class TemperatureViewHolder(val binding: ItemTemperatureBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
     fun updateTemperatures(list: List<Temperature>) {
-        temperatureList.addAll(list)
+        Logger.logcat("updateTemperatures list: $list", "TemperatureAdapter")
+        temperaturesList.clear()
+        temperaturesList.addAll(list.toMutableList())
+        Logger.logcat(
+            "updateTemperatures temperaturesList: $temperaturesList",
+            "TemperatureAdapter"
+        )
         notifyDataSetChanged()
     }
 }

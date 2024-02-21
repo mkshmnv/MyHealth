@@ -20,10 +20,8 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature) {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = Navigation.findNavController(view)
-
-        val adapter = TemperatureAdapter { item ->
-            Logger.logcat("Clicked $item")
-            temperatureViewModel.saveCurrentValue(item)
+        val adapter = TemperatureAdapter {
+            temperatureViewModel.clickedTemperature(it)
             navController.navigate(R.id.action_nav_temperature_to_nav_temperature_value)
         }
 
@@ -35,14 +33,13 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature) {
 //                temperatureViewModel.getTemperatureStats()
             }
             btnTemperatureAdd.setOnClickListener {
-                temperatureViewModel.saveCurrentValue(Temperature("", "", ""))
+                temperatureViewModel.addNewTemperature()
                 navController.navigate(R.id.action_nav_temperature_to_nav_temperature_value)
             }
         }
 
         temperatureViewModel.apply {
-            getTemperatureList()
-            tempList.observe(viewLifecycleOwner) {
+            tempList.observeForever {
                 adapter.updateTemperatures(it)
             }
         }
