@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:id="@+id/fragment_temperature"
     tools:context=".ui.temperature.TemperatureFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,7 @@
         android:layout_marginBottom="12dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/btn_temperature_stats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +24,7 @@
         tools:listitem="@layout/item_temperature" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_temperature_add"
+        android:id="@+id/btn_temperature_stats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
@@ -29,11 +32,11 @@
         android:textSize="20sp"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_temperature_stats"
+        app:layout_constraintEnd_toStartOf="@+id/btn_temperature_add"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_temperature_stats"
+        android:id="@+id/btn_temperature_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"

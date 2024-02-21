@@ -7,12 +7,14 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-<!--    Menu -->
+    <!--    Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_temperature">Temperature</string>
     <string name="menu_slideshow">Slideshow</string>
 
-<!--    Fragment temperature -->
+    <!--    Fragment temperature -->
     <string name="temperature_add">Add</string>
     <string name="temperature_statistics">Statistics</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

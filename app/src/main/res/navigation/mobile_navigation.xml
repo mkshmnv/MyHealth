@@ -15,7 +15,17 @@
         android:id="@+id/nav_temperature"
         android:name="com.mkshmnv.myhealth.ui.temperature.TemperatureFragment"
         android:label="@string/menu_temperature"
-        tools:layout="@layout/fragment_temperature" />
+        tools:layout="@layout/fragment_temperature" >
+        <action
+            android:id="@+id/action_nav_temperature_to_nav_temperature_value"
+            app:destination="@id/nav_temperature_value" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_temperature_value"
+        android:name="com.mkshmnv.myhealth.ui.temperature.TemperatureValueFragment"
+        android:label="TemperatureValue"
+        tools:layout="@layout/fragment_temperature_value" />
 
     <fragment
         android:id="@+id/nav_slideshow"

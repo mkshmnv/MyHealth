@@ -1,13 +1,12 @@
 package com.mkshmnv.myhealth.ui.temperature
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import com.mkshmnv.myhealth.Logger
 import com.mkshmnv.myhealth.R
 import com.mkshmnv.myhealth.databinding.FragmentTemperatureBinding
 import com.mkshmnv.myhealth.ui.viewBinding
@@ -19,8 +18,33 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        temperatureViewModel.text.observe(viewLifecycleOwner, {
 
-        })
+        val navController = Navigation.findNavController(view)
+
+        val adapter = TemperatureAdapter { item ->
+            Logger.logcat("Clicked $item")
+            temperatureViewModel.saveCurrentValue(item)
+            navController.navigate(R.id.action_nav_temperature_to_nav_temperature_value)
+        }
+
+        binding.apply {
+            rvTemperatureList.adapter = adapter
+
+            btnTemperatureStats.setOnClickListener {
+                Toast.makeText(context, "Temperature stats", Toast.LENGTH_SHORT).show()
+//                temperatureViewModel.getTemperatureStats()
+            }
+            btnTemperatureAdd.setOnClickListener {
+                temperatureViewModel.saveCurrentValue(Temperature("", "", ""))
+                navController.navigate(R.id.action_nav_temperature_to_nav_temperature_value)
+            }
+        }
+
+        temperatureViewModel.apply {
+            getTemperatureList()
+            tempList.observe(viewLifecycleOwner) {
+                adapter.updateTemperatures(it)
+            }
+        }
     }
 }
