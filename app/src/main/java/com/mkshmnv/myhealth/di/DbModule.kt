@@ -1,0 +1,33 @@
+package com.mkshmnv.myhealth.di
+
+import android.content.Context
+import androidx.room.Room
+import com.mkshmnv.myhealth.db.TemperatureDatabase
+import com.mkshmnv.myhealth.db.TemperatureEntity
+import com.mkshmnv.myhealth.utils.Constants.TEMPERATURE_DATABASE
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DbModule {
+
+    @Provides
+    @Singleton
+    fun provideDB(@ApplicationContext context: Context) = Room.databaseBuilder(
+        context, TemperatureDatabase::class.java, TEMPERATURE_DATABASE)
+        .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
+        .build()
+
+    @Provides
+    @Singleton
+    fun provideDao(db: TemperatureDatabase) = db.temperatureDoa()
+
+    @Provides
+    fun provideEntity() = TemperatureEntity()
+}

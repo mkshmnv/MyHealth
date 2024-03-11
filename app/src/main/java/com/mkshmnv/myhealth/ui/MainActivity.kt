@@ -1,4 +1,4 @@
-package com.mkshmnv.myhealth
+package com.mkshmnv.myhealth.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,8 +11,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.mkshmnv.myhealth.R
 import com.mkshmnv.myhealth.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
