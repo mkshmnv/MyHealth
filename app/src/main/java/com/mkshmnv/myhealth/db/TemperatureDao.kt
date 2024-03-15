@@ -1,5 +1,6 @@
 package com.mkshmnv.myhealth.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,16 +12,19 @@ import com.mkshmnv.myhealth.utils.Constants.TEMPERATURE_TABLE
 @Dao
 interface TemperatureDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(temperatureEntity: TemperatureEntity)
+    fun insert(temperatureNote: TemperatureEntity)
 
     @Update
-    fun update(temperatureEntity: TemperatureEntity)
+    fun update(temperatureNote: TemperatureEntity)
 
     @Delete
-    fun delete(temperatureEntity: TemperatureEntity)
+    fun delete(temperatureNote: TemperatureEntity)
+
+    @Query("DELETE FROM $TEMPERATURE_TABLE WHERE id LIKE :id")
+    fun deleteById(id: Int)
 
     @Query("SELECT * FROM $TEMPERATURE_TABLE ORDER BY id DESC")
-    fun getAll(): MutableList<TemperatureEntity>
+    fun getAll(): LiveData<List<TemperatureEntity>>
 
     @Query("SELECT * FROM $TEMPERATURE_TABLE WHERE id LIKE :id")
     fun getById(id: Int): TemperatureEntity
