@@ -10,13 +10,13 @@ data class TemperatureEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "temperature_date")
-    val date: String = "",
+    var date: String = "",
     @ColumnInfo(name = "temperature_time")
-    val time: String = "",
+    var time: String = "",
     @ColumnInfo(name = "temperature_value")
-    val value: String = "",
+    var value: Int = 36,
     @ColumnInfo(name = "temperature_pills")
-    val pills: Boolean = false,
+    var pills: Boolean = false,
     @ColumnInfo(name = "temperature_desc")
-    val description: String = ""
+    var description: String = ""
 )

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutNumberPicker"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerLeft4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#C4CAD0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPickerLeft3"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerLeft3"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#C4CAD0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPickerLeft2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.3" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerLeft2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#C4CAD0"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPickerLeft1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.4" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerLeft1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:textColor="#787878"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="29sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvNumberPicker"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.5" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.6" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerRight1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="#787878"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="29sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvNumberPicker"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.7" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerRight2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#C4CAD0"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPickerRight1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.8" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerRight3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#C4CAD0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPickerRight2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36.9" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPickerRight4"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#C4CAD0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPickerRight3"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="37.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

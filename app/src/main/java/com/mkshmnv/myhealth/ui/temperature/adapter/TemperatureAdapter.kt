@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 class TemperatureAdapter @Inject constructor(
-    private val items: List<TemperatureEntity>,
+    private val temperatureEntityList: List<TemperatureEntity>,
     private val listener: RecyclerViewEvent
 ) : RecyclerView.Adapter<TemperatureAdapter.ViewHolder>() {
 
@@ -23,30 +23,40 @@ class TemperatureAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(items[position])
+        viewHolder.bind(temperatureEntityList[position])
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = temperatureEntityList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private val binding = ItemTemperatureBinding.bind(view)
+
+        private val temperatureValuesArray =
+            view.context.resources.getStringArray(R.array.temperature_values)
 
         init {
             view.setOnClickListener(this)
         }
 
+        @Suppress("DEPRECATION")
         fun bind(item: TemperatureEntity) {
             binding.apply {
                 tvTemperatureDate.text = item.date
-                tvTemperatureValue.text = item.value
+                tvTemperatureValue.text = temperatureValuesArray[item.value]
                 tvTemperatureTime.text = item.time
+                this@ViewHolder.itemView.context.resources.apply {
+                    when (item.value) {
+                        in 33..42 -> cvTemperatureItem.setCardBackgroundColor(getColor(R.color.light_green))
+                        else -> cvTemperatureItem.setCardBackgroundColor(getColor(R.color.light_red))
+                    }
+                }
             }
         }
 
         override fun onClick(v: View?) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(items[position])
+                listener.onItemClick(temperatureEntityList[position])
             }
         }
     }

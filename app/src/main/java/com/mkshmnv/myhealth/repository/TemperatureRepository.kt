@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TemperatureRepository @Inject constructor(private val dao: TemperatureDao, ) {
+class TemperatureRepository @Inject constructor(private val dao: TemperatureDao) {
     fun insert(temperature: TemperatureEntity) {
         CoroutineScope(Dispatchers.IO).launch {
             dao.insert(temperature)
@@ -21,23 +21,21 @@ class TemperatureRepository @Inject constructor(private val dao: TemperatureDao,
         }
     }
 
-    fun delete(temperature: TemperatureEntity) {
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.delete(temperature)
-        }
-    }
-
     fun deleteById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             dao.deleteById(id)
         }
     }
 
-    fun getAllItems(): LiveData<List<TemperatureEntity>> {
-        return dao.getAll()
+    fun getById(id: Int): TemperatureEntity {
+        try {
+            return dao.getById(id)
+        } catch (e: Exception) {
+            throw Exception("Item not found")
+        }
     }
 
-    fun getById(id: Int): TemperatureEntity {
-        return dao.getById(id)
+    fun getAllItems(): LiveData<List<TemperatureEntity>> {
+        return dao.getAll()
     }
 }
