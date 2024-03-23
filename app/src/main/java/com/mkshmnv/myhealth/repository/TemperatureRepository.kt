@@ -21,21 +21,13 @@ class TemperatureRepository @Inject constructor(private val dao: TemperatureDao)
         }
     }
 
-    fun deleteById(id: Int) {
+    fun delete(temperature: TemperatureEntity) {
         CoroutineScope(Dispatchers.IO).launch {
-            dao.deleteById(id)
+            dao.delete(temperature)
         }
     }
 
-    fun getById(id: Int): TemperatureEntity {
-        try {
-            return dao.getById(id)
-        } catch (e: Exception) {
-            throw Exception("Item not found")
-        }
-    }
+    fun getById(id: Int): TemperatureEntity = dao.getById(id)
 
-    fun getAllItems(): LiveData<List<TemperatureEntity>> {
-        return dao.getAll()
-    }
+    fun getAllItems(): LiveData<List<TemperatureEntity>> = dao.getAll()
 }

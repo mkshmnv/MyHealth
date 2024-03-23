@@ -14,7 +14,7 @@ data class TemperatureEntity(
     @ColumnInfo(name = "temperature_time")
     var time: String = "",
     @ColumnInfo(name = "temperature_value")
-    var value: Int = 36,
+    var value: Int = 37,
     @ColumnInfo(name = "temperature_pills")
     var pills: Boolean = false,
     @ColumnInfo(name = "temperature_desc")

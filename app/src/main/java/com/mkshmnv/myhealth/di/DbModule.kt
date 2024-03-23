@@ -1,17 +1,20 @@
 package com.mkshmnv.myhealth.di
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.room.Room
+import com.mkshmnv.myhealth.R
 import com.mkshmnv.myhealth.db.TemperatureDatabase
 import com.mkshmnv.myhealth.db.TemperatureEntity
-import com.mkshmnv.myhealth.ui.temperature.picker.PickerLayoutManager
 import com.mkshmnv.myhealth.utils.Constants.TEMPERATURE_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import javax.inject.Singleton
 
 @Module
@@ -31,13 +34,12 @@ object DbModule {
     @Singleton
     fun provideDao(db: TemperatureDatabase) = db.temperatureDoa()
 
+    @SuppressLint("SimpleDateFormat")
     @Provides
-    fun provideEntity() = TemperatureEntity()
-
-    @Provides
-    @Singleton
-    fun providePickerLayoutManager(@ApplicationContext context: Context) =
-        PickerLayoutManager(context)
+    fun provideEntity(@ApplicationContext context: Context) = TemperatureEntity(
+        date = SimpleDateFormat(context.getString(R.string.format_date)).format(Date()),
+        time = SimpleDateFormat(context.getString(R.string.format_time)).format(Date())
+    )
 
     @Provides
     @Singleton

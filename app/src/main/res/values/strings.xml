@@ -26,106 +26,106 @@
 
 
     <string-array name="temperature_values">
-        <item>33.0</item>
-        <item>33.1</item>
-        <item>33.2</item>
-        <item>33.3</item>
-        <item>33.3</item>
-        <item>33.4</item>
-        <item>33.5</item>
-        <item>33.6</item>
-        <item>33.7</item>
-        <item>33.8</item>
-        <item>33.9</item>
-        <item>34.0</item>
-        <item>34.1</item>
-        <item>34.2</item>
-        <item>34.3</item>
-        <item>34.4</item>
-        <item>34.5</item>
-        <item>34.6</item>
-        <item>34.7</item>
-        <item>34.8</item>
-        <item>34.9</item>
-        <item>35.0</item>
-        <item>35.1</item>
-        <item>35.2</item>
-        <item>35.3</item>
-        <item>35.4</item>
-        <item>35.5</item>
-        <item>35.6</item>
-        <item>35.7</item>
-        <item>35.8</item>
-        <item>35.9</item>
-        <item>36.0</item>
-        <item>36.1</item>
-        <item>36.2</item>
-        <item>36.3</item>
-        <item>36.4</item>
-        <item>36.5</item>
-        <item>36.6</item>
-        <item>36.7</item>
-        <item>36.8</item>
-        <item>36.9</item>
-        <item>37.0</item>
-        <item>37.1</item>
-        <item>37.2</item>
-        <item>37.3</item>
-        <item>37.4</item>
-        <item>37.5</item>
-        <item>37.6</item>
-        <item>37.7</item>
-        <item>37.8</item>
-        <item>37.9</item>
-        <item>38.0</item>
-        <item>38.1</item>
-        <item>38.2</item>
-        <item>38.3</item>
-        <item>38.4</item>
-        <item>38.5</item>
-        <item>38.6</item>
-        <item>38.7</item>
-        <item>38.8</item>
-        <item>38.9</item>
-        <item>39.0</item>
-        <item>39.1</item>
-        <item>39.2</item>
-        <item>39.3</item>
-        <item>39.4</item>
-        <item>39.5</item>
-        <item>39.6</item>
-        <item>39.7</item>
-        <item>39.8</item>
-        <item>39.9</item>
-        <item>40.0</item>
-        <item>40.1</item>
-        <item>40.2</item>
-        <item>40.3</item>
-        <item>40.4</item>
-        <item>40.5</item>
-        <item>40.6</item>
-        <item>40.7</item>
-        <item>40.8</item>
-        <item>40.9</item>
-        <item>41.0</item>
-        <item>41.1</item>
-        <item>41.2</item>
-        <item>41.3</item>
-        <item>41.4</item>
-        <item>41.5</item>
-        <item>41.6</item>
-        <item>41.7</item>
-        <item>41.8</item>
-        <item>41.9</item>
-        <item>42.0</item>
-        <item>42.1</item>
-        <item>42.2</item>
-        <item>42.3</item>
-        <item>42.4</item>
-        <item>42.5</item>
-        <item>42.6</item>
-        <item>42.7</item>
-        <item>42.8</item>
-        <item>42.9</item>
-    </string-array>
+        <item>33.0 °C</item>
+        <item>33.1 °C</item>
+        <item>33.2 °C</item>
+        <item>33.3 °C</item>
+        <item>33.3 °C</item>
+        <item>33.4 °C</item>
+        <item>33.5 °C</item>
+        <item>33.6 °C</item>
+        <item>33.7 °C</item>
+        <item>33.8 °C</item>
+        <item>33.9 °C</item>
+        <item>34.0 °C</item>
+        <item>34.1 °C</item>
+        <item>34.2 °C</item>
+        <item>34.3 °C</item>
+        <item>34.4 °C</item>
+        <item>34.5 °C</item>
+        <item>34.6 °C</item>
+        <item>34.7 °C</item>
+        <item>34.8 °C</item>
+        <item>34.9 °C</item>
+        <item>35.0 °C</item>
+        <item>35.1 °C</item>
+        <item>35.2 °C</item>
+        <item>35.3 °C</item>
+        <item>35.4 °C</item>
+        <item>35.5 °C</item>
+        <item>35.6 °C</item>
+        <item>35.7 °C</item>
+        <item>35.8 °C</item>
+        <item>35.9 °C</item>
+        <item>36.0 °C</item>
+        <item>36.1 °C</item>
+        <item>36.2 °C</item>
+        <item>36.3 °C</item>
+        <item>36.4 °C</item>
+        <item>36.5 °C</item>
+        <item>36.6 °C</item>
+        <item>36.7 °C</item>
+        <item>36.8 °C</item>
+        <item>36.9 °C</item>
+        <item>37.0 °C</item>
+        <item>37.1 °C</item>
+        <item>37.2 °C</item>
+        <item>37.3 °C</item>
+        <item>37.4 °C</item>
+        <item>37.5 °C</item>
+        <item>37.6 °C</item>
+        <item>37.7 °C</item>
+        <item>37.8 °C</item>
+        <item>37.9 °C</item>
+        <item>38.0 °C</item>
+        <item>38.1 °C</item>
+        <item>38.2 °C</item>
+        <item>38.3 °C</item>
+        <item>38.4 °C</item>
+        <item>38.5 °C</item>
+        <item>38.6 °C</item>
+        <item>38.7 °C</item>
+        <item>38.8 °C</item>
+        <item>38.9 °C</item>
+        <item>39.0 °C</item>
+        <item>39.1 °C</item>
+        <item>39.2 °C</item>
+        <item>39.3 °C</item>
+        <item>39.4 °C</item>
+        <item>39.5 °C</item>
+        <item>39.6 °C</item>
+        <item>39.7 °C</item>
+        <item>39.8 °C</item>
+        <item>39.9 °C</item>
+        <item>40.0 °C</item>
+        <item>40.1 °C</item>
+        <item>40.2 °C</item>
+        <item>40.3 °C</item>
+        <item>40.4 °C</item>
+        <item>40.5 °C</item>
+        <item>40.6 °C</item>
+        <item>40.7 °C</item>
+        <item>40.8 °C</item>
+        <item>40.9 °C</item>
+        <item>41.0 °C</item>
+        <item>41.1 °C</item>
+        <item>41.2 °C</item>
+        <item>41.3 °C</item>
+        <item>41.4 °C</item>
+        <item>41.5 °C</item>
+        <item>41.6 °C</item>
+        <item>41.7 °C</item>
+        <item>41.8 °C</item>
+        <item>41.9 °C</item>
+        <item>42.0 °C</item>
+        <item>42.1 °C</item>
+        <item>42.2 °C</item>
+        <item>42.3 °C</item>
+        <item>42.4 °C</item>
+        <item>42.5 °C</item>
+        <item>42.6 °C</item>
+        <item>42.7 °C</item>
+        <item>42.8 °C</item>
+        <item>42.9 °C</item>
+        °C</string-array>
 </resources>

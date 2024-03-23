@@ -29,9 +29,6 @@
         <action
             android:id="@+id/action_nav_temperature_details_to_nav_temperature"
             app:destination="@id/nav_temperature" />
-        <argument
-            android:name="id"
-            app:argType="integer" />
     </fragment>
 
     <fragment

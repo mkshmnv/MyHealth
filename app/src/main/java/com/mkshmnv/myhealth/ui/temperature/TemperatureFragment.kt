@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.mkshmnv.myhealth.R
@@ -19,8 +19,9 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature),
     TemperatureAdapter.RecyclerViewEvent {
 
     private val binding: FragmentTemperatureBinding by viewBinding()
-    private val temperatureViewModel: TemperatureViewModel by viewModels()
+    private val temperatureViewModel: TemperatureViewModel by activityViewModels()
 
+    //    TODO: @Inject
     private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,30 +35,36 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature),
                     tvEmptyText.visibility = View.VISIBLE
                     rvTemperatureList.visibility = View.GONE
                 } else {
-                    rvTemperatureList.adapter =
-                        TemperatureAdapter(temperaturesList, this@TemperatureFragment)
-                    tvEmptyText.visibility = View.GONE
+                    val adapter = TemperatureAdapter(temperaturesList, this@TemperatureFragment)
+                    rvTemperatureList.adapter = adapter
                     rvTemperatureList.visibility = View.VISIBLE
+                    tvEmptyText.visibility = View.GONE
                 }
             }
         }
 
-        binding.fabTemperatureStats.setOnClickListener {
-            Toast.makeText(context, "Temperature stats", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.fabTemperatureAdd.setOnClickListener {
-            navigateToDetailsWithItemId(0)
+        binding.apply {
+            fabTemperatureStats.setOnClickListener {
+                Toast.makeText(context, "Temperature stats", Toast.LENGTH_SHORT).show()
+            }
+            fabTemperatureAdd.setOnClickListener {
+                navigateToDetailsItemWithId(0)
+            }
         }
     }
 
     override fun onItemClick(item: TemperatureEntity) {
-        navigateToDetailsWithItemId(item.id)
+        navigateToDetailsItemWithId(item.id)
     }
 
-    private fun navigateToDetailsWithItemId(itemId: Int) {
+    private fun navigateToDetailsItemWithId(itemId: Int) {
         val action =
-            TemperatureFragmentDirections.actionNavTemperatureToNavTemperatureDetails(itemId)
-        navController.navigate(action)
+            TemperatureFragmentDirections.actionNavTemperatureToNavTemperatureDetails()
+
+        temperatureViewModel.setCurrentItem(itemId)
+        // TODO: impl waiting animation
+        temperatureViewModel.temperature.observe(viewLifecycleOwner) {
+            navController.navigate(action)
+        }
     }
 }

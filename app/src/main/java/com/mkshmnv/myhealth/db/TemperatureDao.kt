@@ -20,9 +20,6 @@ interface TemperatureDao {
     @Delete
     fun delete(temperatureNote: TemperatureEntity)
 
-    @Query("DELETE FROM $TEMPERATURE_TABLE WHERE id LIKE :id")
-    fun deleteById(id: Int)
-
     @Query("SELECT * FROM $TEMPERATURE_TABLE ORDER BY id DESC")
     fun getAll(): LiveData<List<TemperatureEntity>>
 

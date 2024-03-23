@@ -1,92 +1,46 @@
 package com.mkshmnv.myhealth.ui.temperature
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.NumberPicker
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.navArgs
-import com.mkshmnv.myhealth.Logger
 import com.mkshmnv.myhealth.R
 import com.mkshmnv.myhealth.databinding.FragmentTemperatureDetailsBinding
-import com.mkshmnv.myhealth.db.TemperatureEntity
-import com.mkshmnv.myhealth.ui.temperature.picker.PickerAdapter
-import com.mkshmnv.myhealth.ui.temperature.picker.PickerLayoutManager
-import com.mkshmnv.myhealth.ui.temperature.picker.ScreenUtils
 import com.mkshmnv.myhealth.ui.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AndroidEntryPoint
-@Singleton
 class TemperatureDetailsFragment : Fragment(R.layout.fragment_temperature_details) {
-
     private val binding: FragmentTemperatureDetailsBinding by viewBinding()
-    private val temperatureViewModel: TemperatureViewModel by viewModels()
-
-    @Inject
-    lateinit var pickerLayoutManager: PickerLayoutManager
-
-    @Inject
-    lateinit var temperature: TemperatureEntity
-
-    // TODO: impl HILT
-    lateinit var pickerAdapter: PickerAdapter
+    private val temperatureViewModel: TemperatureViewModel by activityViewModels()
 
     @Inject
     lateinit var calendar: Calendar
 
-    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up the temperature picker (recyclerview)
-        setTemperaturePicker()
-
-        // Get the argument item ID from TemperatureFragment on item click
-        val args: TemperatureDetailsFragmentArgs by navArgs()
-
-        if (args.id != 0) {
-            // If item an existing we need to get it from the database
-            temperatureViewModel.getItemById(args.id).let {
-                temperature = it
-                binding.apply {
-                    // and set the values to the UI elements
-                    tvDate.text = temperature.date
-                    tvTime.text = temperature.time
-                    pickerTemperatures.post {
-                        pickerTemperatures.smoothScrollToPosition(temperature.value)
-                    }
-                    chbPills.isChecked = temperature.pills
-                    etDescription.setText(temperature.description)
-
-                    // Show the delete button if the item is not new and we can delete it
-                    fabDelete.visibility = View.VISIBLE
-                }
-            }
-        } else {
-            binding.apply {
-                // If item is new, we need to set the default values
-                tvDate.text = SimpleDateFormat(getString(R.string.format_date)).format(Date())
-                tvTime.text = SimpleDateFormat(getString(R.string.format_time)).format(Date())
-                pickerTemperatures.post {
-                    pickerTemperatures.smoothScrollToPosition(36)
-                }
-
-                // Hide the delete button if the item is new
-                fabDelete.visibility = View.GONE
-            }
-        }
-
         binding.apply {
+            // Set values to UI from the ViewModel
+            temperatureViewModel.temperature.value?.let { temperature ->
+                tvDate.text = temperature.date
+                tvTime.text = temperature.time
+                pickerValue.setTemperatures(temperature.value)
+                chbPills.isChecked = temperature.pills
+                etDescription.setText(temperature.description)
+
+                if (temperature.id == 0) fabDelete.hide() else fabDelete.show()
+            }
+
+            // Set listeners
             tvDate.setOnClickListener {
                 showDatePickerDialog()
             }
@@ -95,27 +49,26 @@ class TemperatureDetailsFragment : Fragment(R.layout.fragment_temperature_detail
                 showTimePickerDialog()
             }
 
-            fabDelete.setOnClickListener {
-                temperatureViewModel.deleteItemById(args.id)
+            fabSave.setOnClickListener {
+                temperatureViewModel.saveItem(
+                    date = tvDate.text.toString(),
+                    time = tvTime.text.toString(),
+                    value = pickerValue.value,
+                    pills = chbPills.isChecked,
+                    description = etDescription.text.toString()
+                )
                 backToTemperatureFragment()
             }
 
-            fabSave.setOnClickListener {
-                if (temperature.value != -1) {
-                    valuesFromUI()
-                    if (args.id != 0) {
-                        temperatureViewModel.updateItem(temperature)
-                    } else {
-                        temperatureViewModel.addItem(temperature)
-                    }
-                    backToTemperatureFragment()
-                }
+            fabDelete.setOnClickListener {
+                temperatureViewModel.deleteItem()
+                backToTemperatureFragment()
             }
         }
     }
 
+    // Show date picker dialog and set date to TextView
     private fun showDatePickerDialog() {
-        // Show date picker dialog and set date to TextView
         val datePickerDialog = DatePickerDialog(
             requireActivity(),
             { _, year: Int, monthOfYear: Int, dayOfMonth: Int ->
@@ -132,6 +85,7 @@ class TemperatureDetailsFragment : Fragment(R.layout.fragment_temperature_detail
         datePickerDialog.show()
     }
 
+    // Show time picker dialog and set time to TextView
     private fun showTimePickerDialog() {
         val timePickerDialog = TimePickerDialog(
             requireActivity(), { _, hourOfDay, minute ->
@@ -144,55 +98,25 @@ class TemperatureDetailsFragment : Fragment(R.layout.fragment_temperature_detail
         timePickerDialog.show()
     }
 
-    private fun setTemperaturePicker() {
-        val padding = ScreenUtils.getScreenWidth(requireActivity()) / 2 - ScreenUtils.dpToPx(
-            requireActivity(),
-            40
-        )
-
-        val items: Array<String> = resources.getStringArray(R.array.temperature_values)
-
-        binding.pickerTemperatures.apply {
-            // Setting the padding such that the items will appear in the middle of the screen
-            setPadding(padding, 0, padding, 0)
-            // Setting layout manager
-            layoutManager = pickerLayoutManager.apply {
-                callback = object : PickerLayoutManager.OnItemSelectedListener {
-                    override fun onItemSelected(layoutPosition: Int) {
-                        Logger.logcat("Position = ${items[layoutPosition]}")
-                        pickerAdapter.setSelectedItem(layoutPosition)
-                    }
-                }
-            }
-        }
-
-        // Setting Adapter
-        pickerAdapter = PickerAdapter(items)
-        binding.apply {
-            pickerTemperatures.adapter = pickerAdapter.apply {
-                callback = object : PickerAdapter.Callback {
-                    override fun onItemClicked(view: View) {
-                        pickerTemperatures.smoothScrollToPosition(
-                            pickerTemperatures.getChildLayoutPosition(view)
-                        )
-                    }
-                }
-            }
+    // Ext set temperatures values to NumberPicker
+    private fun NumberPicker.setTemperatures(indexValue: Int) {
+        val values = resources.getStringArray(R.array.temperature_values)
+        val normalValues = 33..40
+        val greenColor = resources.getColor(R.color.green)
+        val redColor = resources.getColor(R.color.red)
+        this.minValue = 0
+        this.maxValue = values.size - 1
+        this.displayedValues = values
+        this.textColor = if (indexValue in normalValues) greenColor else redColor
+        this.value = indexValue
+        this.setOnValueChangedListener { _, _, newVal ->
+            this.textColor = if (newVal in normalValues) greenColor else redColor
         }
     }
 
-    private fun valuesFromUI() {
-        binding.apply {
-            temperature.date = tvDate.text.toString()
-            temperature.time = tvTime.text.toString()
-            temperature.value = pickerAdapter.getSelectedItem()
-            temperature.pills = chbPills.isChecked
-            temperature.description = etDescription.text.toString()
-        }
-    }
-
+    // Navigate back to the TemperatureFragment
     private fun backToTemperatureFragment() {
-        binding.pickerTemperatures.layoutManager = null
+        // Navigate back to the TemperatureFragment
         val navController = this.view?.let { Navigation.findNavController(it) }
         val action =
             TemperatureDetailsFragmentDirections.actionNavTemperatureDetailsToNavTemperature()
