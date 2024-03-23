@@ -13,7 +13,6 @@ import com.mkshmnv.myhealth.db.TemperatureEntity
 import com.mkshmnv.myhealth.ui.temperature.adapter.TemperatureAdapter
 import com.mkshmnv.myhealth.ui.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TemperatureFragment : Fragment(R.layout.fragment_temperature),
@@ -31,7 +30,8 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature),
                     tvEmptyText.visibility = View.VISIBLE
                     rvTemperatureList.visibility = View.GONE
                 } else {
-                    val adapter = TemperatureAdapter(temperaturesList, this@TemperatureFragment)
+                    val sortedList = temperaturesList.sortedByDescending { it.date }
+                    val adapter = TemperatureAdapter(sortedList, this@TemperatureFragment)
                     rvTemperatureList.adapter = adapter
                     rvTemperatureList.visibility = View.VISIBLE
                     tvEmptyText.visibility = View.GONE
