@@ -13,6 +13,7 @@ import com.mkshmnv.myhealth.db.TemperatureEntity
 import com.mkshmnv.myhealth.ui.temperature.adapter.TemperatureAdapter
 import com.mkshmnv.myhealth.ui.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TemperatureFragment : Fragment(R.layout.fragment_temperature),
@@ -21,13 +22,8 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature),
     private val binding: FragmentTemperatureBinding by viewBinding()
     private val temperatureViewModel: TemperatureViewModel by activityViewModels()
 
-    //    TODO: @Inject
-    private lateinit var navController: NavController
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        navController = Navigation.findNavController(view)
 
         temperatureViewModel.getAllItems().observe(viewLifecycleOwner) { temperaturesList ->
             binding.apply {
@@ -61,9 +57,10 @@ class TemperatureFragment : Fragment(R.layout.fragment_temperature),
         val action =
             TemperatureFragmentDirections.actionNavTemperatureToNavTemperatureDetails()
 
-        temperatureViewModel.setCurrentItem(itemId)
+        temperatureViewModel.initCurrentItem(itemId)
         // TODO: impl waiting animation
         temperatureViewModel.temperature.observe(viewLifecycleOwner) {
+            val navController: NavController = Navigation.findNavController(requireView())
             navController.navigate(action)
         }
     }

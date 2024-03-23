@@ -99,6 +99,7 @@ class TemperatureDetailsFragment : Fragment(R.layout.fragment_temperature_detail
     }
 
     // Ext set temperatures values to NumberPicker
+    @Suppress("DEPRECATION")
     private fun NumberPicker.setTemperatures(indexValue: Int) {
         val values = resources.getStringArray(R.array.temperature_values)
         val normalValues = 33..40

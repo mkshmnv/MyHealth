@@ -1,7 +1,12 @@
 package com.mkshmnv.myhealth.di
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.view.View
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.room.Room
 import com.mkshmnv.myhealth.R
 import com.mkshmnv.myhealth.db.TemperatureDatabase

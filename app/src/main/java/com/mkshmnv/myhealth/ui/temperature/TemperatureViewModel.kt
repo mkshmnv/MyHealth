@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mkshmnv.myhealth.Logger
 import com.mkshmnv.myhealth.db.TemperatureEntity
 import com.mkshmnv.myhealth.repository.TemperatureRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +19,12 @@ class TemperatureViewModel @Inject constructor(
     private var _temperature = MutableLiveData<TemperatureEntity>()
     val temperature: LiveData<TemperatureEntity> = _temperature
 
-    //
+    // Get all temperature items from the repository for RecyclerView
     fun getAllItems(): LiveData<List<TemperatureEntity>> = repository.getAllItems()
 
+    // Initialize the current item for details screen
     @SuppressLint("SimpleDateFormat")
-    fun setCurrentItem(id: Int) {
+    fun initCurrentItem(id: Int) {
         _temperature.value = if (id == 0) {
             TemperatureEntity(
                 date = SimpleDateFormat("dd.MM.yyyy").format(Date()),
@@ -35,6 +35,7 @@ class TemperatureViewModel @Inject constructor(
         }
     }
 
+    // Save item to the repository from the details screen
     fun saveItem(date: String, time: String, value: Int, pills: Boolean, description: String) {
         _temperature.value?.apply {
             this.date = date
@@ -46,6 +47,7 @@ class TemperatureViewModel @Inject constructor(
         }
     }
 
+    // Delete item from the repository
     fun deleteItem() {
         _temperature.value?.let { repository.delete(it) }
     }
